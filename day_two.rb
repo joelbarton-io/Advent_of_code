@@ -1,5 +1,78 @@
 # Day two: dive!
 
+=begin
+
+PART 1 rules:
+
+- initial position: [0, 0]
+- forward adds to horizontal position
+- up decreases depth
+- down increases depth
+raw_data = 'down 1 up 3 forward 5'
+ 
+
+PART 2 rules:
+
+- down x increases `aim` by x
+- up x decreases `aim` by x
+- forward x does two things:
+  - increases `horizontal_origin` by x 
+  - increases `depth` by you `aim` multiplied by x
+
+=end
+
+# CLEAN UP 
+
+data_messy = raw_data.split(' ')
+data = []
+data_messy.each_with_index do |el, ind|
+  next if ind.odd? 
+  data.push([el, data_messy[ind + 1]])
+end
+
+# make second el integer
+clean_data = data.map do |sub_arr|
+  [sub_arr.first, sub_arr[1].to_i]
+end
+
+# Part 1
+
+horizontal_origin = 0
+depth_origin = 0
+
+clean_data.each do |move|
+  case move.first
+  when 'forward'
+    horizontal_origin += move.last
+  when 'down'
+    depth_origin += move.last
+  when 'up'
+    depth_origin -= move.last
+  end
+end 
+horizontal_origin * depth_origin
+
+# Part 2
+
+horizontal_origin = 0
+depth_origin = 0
+aim = 0
+
+clean_data.each do |move|
+  x = move.last
+  case move.first 
+  when 'forward'
+    horizontal_origin += x
+    depth_origin += (aim * x)
+  when 'down'
+    aim += x
+  when 'up'
+    aim -= x
+  end
+end
+horizontal_origin * depth_origin 
+
+
 
 raw_data = ' forward 3
 down 7
@@ -1003,75 +1076,3 @@ down 9
 forward 8
 '
 # paste here
-
-=begin
-
-PART 1 rules:
-
-- initial position: [0, 0]
-- forward adds to horizontal position
-- up decreases depth
-- down increases depth
-raw_data = 'down 1 up 3 forward 5'
- 
-
-PART 2 rules:
-
-- down x increases `aim` by x
-- up x decreases `aim` by x
-- forward x does two things:
-  - increases `horizontal_origin` by x 
-  - increases `depth` by you `aim` multiplied by x
-
-=end
-
-# CLEAN UP 
-
-data_messy = raw_data.split(' ')
-data = []
-data_messy.each_with_index do |el, ind|
-  next if ind.odd? 
-  data.push([el, data_messy[ind + 1]])
-end
-
-# make second el integer
-clean_data = data.map do |sub_arr|
-  [sub_arr.first, sub_arr[1].to_i]
-end
-
-# Part 1
-
-horizontal_origin = 0
-depth_origin = 0
-
-clean_data.each do |move|
-  case move.first
-  when 'forward'
-    horizontal_origin += move.last
-  when 'down'
-    depth_origin += move.last
-  when 'up'
-    depth_origin -= move.last
-  end
-end 
-horizontal_origin * depth_origin
-
-# Part 2
-
-horizontal_origin = 0
-depth_origin = 0
-aim = 0
-
-clean_data.each do |move|
-  x = move.last
-  case move.first 
-  when 'forward'
-    horizontal_origin += x
-    depth_origin += (aim * x)
-  when 'down'
-    aim += x
-  when 'up'
-    aim -= x
-  end
-end
-horizontal_origin * depth_origin 
