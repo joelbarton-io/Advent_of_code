@@ -2001,36 +2001,20 @@ arr = '173
 
 # part 1
 
-# increases = 0
-# index = 0
+increases = 0
+index = 0
 
-# loop do
-#   curr = arr[index]
-#   next_one = arr[index + 1]
+loop do
+  break if index == arr.size - 1
 
-#   increases += 1  if curr < next_one
-#   index += 1
+  curr = arr[index]
+  next_one = arr[index + 1]
 
-#   break if index == arr.size - 1
-# end
-# p increases
+  increases += 1  if curr < next_one
+  index += 1
+end
 
 # part 2
-
-# i: array of integers
-# o: integers
-
-# rules: 
-# - will iterate array.size - 2 times total and then break
-# - need a current and next vars 
-
-# examples
-
-# practice = [1, 2, 3, 4, 5, 6]
-# p practice[0..2]
-
-index = 0
-increases = 0
 
 loop do
   break if index == arr.size - 3
@@ -2039,8 +2023,5 @@ loop do
   following = arr[index+1..index+3]
 
   increases += 1 if following.inject(:+) > curr.inject(:+)
-  
   index +=1
 end
-
-p increases
